@@ -1,6 +1,8 @@
 package com.sofka.carrito.collections;
 
 import com.sofka.carrito.models.Bike;
+import com.sofka.carrito.models.Products;
+import lombok.Data;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
 import org.springframework.data.mongodb.core.mapping.Field;
@@ -10,6 +12,7 @@ import java.time.LocalDateTime;
 import java.util.List;
 
 @Document("purchase")
+@Data
 public class Purchase {
     @Id
     private String id;
@@ -22,5 +25,5 @@ public class Purchase {
     @Field
     private String nameClient;
     @Field
-    private List<Bike> products;
+    private List<Products> products;
 }
