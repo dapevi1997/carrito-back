@@ -26,4 +26,8 @@ public class Purchase {
     private String nameClient;
     @Field
     private List<Products> products;
+
+    public Purchase() {
+        this.dateTime = LocalDateTime.now();
+    }
 }
