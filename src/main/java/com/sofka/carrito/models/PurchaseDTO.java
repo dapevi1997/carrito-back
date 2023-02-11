@@ -15,6 +15,7 @@ public class PurchaseDTO {
 
     private List<Products> products;
 
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;

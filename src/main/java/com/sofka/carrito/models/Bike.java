@@ -1,5 +1,6 @@
 package com.sofka.carrito.models;
 
+import lombok.AllArgsConstructor;
 import lombok.Data;
 
 import java.util.Objects;

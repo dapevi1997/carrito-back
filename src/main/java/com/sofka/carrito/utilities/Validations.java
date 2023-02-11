@@ -77,6 +77,7 @@ public class Validations {
     }
 
     public ValidateModel validatePurchaseDTO(PurchaseDTO purchaseDTO){
+
         if(!stringNotBlankAndNotNull(purchaseDTO.getIdType())){
             return new ValidateModel("El tipo de documento es requerido",false);
         }
@@ -88,7 +89,6 @@ public class Validations {
         }
 
         AtomicBoolean flag = new AtomicBoolean(true);
-        log.info(flag.toString());
 
         purchaseDTO.getProducts().forEach(products -> {
             if (!productsValidate(products)){
@@ -97,11 +97,13 @@ public class Validations {
 
         });
 
-        log.info(flag.toString());
+
 
         if (!flag.get()){
             return new ValidateModel("Verifique información de los productos",false);
         }
+
+
 
         return new ValidateModel("", true);
     }
