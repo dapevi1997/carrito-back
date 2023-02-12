@@ -7,7 +7,6 @@ import com.sofka.carrito.models.PurchaseDTO;
 import com.sofka.carrito.models.ValidateModel;
 import com.sofka.carrito.usecases.AddPurchaseUseCase;
 import com.sofka.carrito.usecases.ListUseCase;
-import com.sofka.carrito.usecases.UpdateBikeInventaryUseCase;
 import com.sofka.carrito.utilities.Validations;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.media.Content;
@@ -131,52 +130,7 @@ public class PurchaseRouter {
         );
     }
 
-    @RouterOperation(
-            path = "/updateBikeInventary",
-            produces = {
-                    MediaType.APPLICATION_JSON_VALUE
-            },
-            method = RequestMethod.PUT,
-            beanClass = PurchaseRouter.class,
-            beanMethod = "updateBikeInventary",
-            operation = @Operation(
-                    operationId = "updateBikeInventary",
-                    responses = {
-                            @ApiResponse(
-                                    responseCode = "200",
-                                    description = "successful operation",
-                                    content = @Content(schema = @Schema(
-                                            implementation = String.class
-                                    ))
-                            )
-                    },
-                    requestBody = @RequestBody(
-                            content = @Content(schema = @Schema(
-                                    implementation = Bike.class
-                            ))
-                    )
-            )
-    )
-    @Bean
-    public RouterFunction<ServerResponse> updateBikeInventary(UpdateBikeInventaryUseCase updateBikeInventaryUseCase) {
-        Function<Bike, Mono<ServerResponse>> executor = bike -> {
-            ValidateModel validateModel = validations.validateBike(bike);
-            if (!validateModel.getIsValid()) {
-                return ServerResponse.badRequest().contentType(MediaType.APPLICATION_JSON).bodyValue(validateModel);
 
-            }
-            return updateBikeInventaryUseCase.updateBikeInventary(bike)
-                    .flatMap(result -> ServerResponse.ok()
-                            .contentType(MediaType.APPLICATION_JSON)
-                            .bodyValue(result));
-        };
-
-        return route(
-                PUT("/updateBikeInventary").and(accept(MediaType.APPLICATION_JSON)),
-                request -> request.bodyToMono(Bike.class).flatMap(executor)
-        );
-
-    }
 
     @RouterOperation(
             path = "/getAllPurchases",
